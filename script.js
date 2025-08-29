@@ -34,3 +34,47 @@ copyIcons.forEach((copybtn) => {
     navigator.clipboard.writeText(hotlineNumber);
   });
 });
+// call
+
+const callButtons = document.querySelectorAll(".call-btn");
+
+callButtons.forEach((callbtn) => {
+  callbtn.addEventListener("click", function (event) {
+    const clickedElement = event.target;
+    console.log(clickedElement.parentNode.parentNode);
+    const serviceName =
+      clickedElement.parentNode.parentNode.querySelector(".service-name").innerText;
+    const serviceNumber =
+      clickedElement.parentNode.parentNode.querySelector("#hotline-number").innerText;
+
+    const totalCoinElement = document.getElementById("total-coin");
+    let totalCoin = parseInt(totalCoinElement.innerText);
+    const time = new Date().toLocaleTimeString();
+
+    if (totalCoin < 20) {
+      alert("You don't have 20 coin");
+      return;
+    }
+    totalCoin = totalCoin - 20;
+
+    totalCoinElement.innerText = totalCoin;
+    alert(`You're calling to ${serviceName} ${serviceNumber}`);
+
+    const historyContainer = document.getElementById("history-container");
+    const card = document.createElement("div");
+    card.innerHTML = `
+    <div class="flex justify-between items-center bg-gray-50 p-4">
+    <div>
+    <h2 class="text-lg font-semibold">${serviceName}</h2>
+    <p class="text-gray-500 text-lg">${serviceNumber}</p>
+    </div>
+    <p class="text-lg">${time}</p>
+
+    </div>
+    `;
+
+    historyContainer.appendChild(card);
+    historyContainer.classList.add("flex", "flex-col", "gap-4");
+  });
+});
+
