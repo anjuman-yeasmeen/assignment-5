@@ -77,4 +77,10 @@ callButtons.forEach((callbtn) => {
     historyContainer.classList.add("flex", "flex-col", "gap-4");
   });
 });
+// clear
+document.getElementById("clear-btn").addEventListener("click", function () {
+  const historyContainer = document.getElementById("history-container");
+  historyContainer.innerHTML = "";
+});
+
 
